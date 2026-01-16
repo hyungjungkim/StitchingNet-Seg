@@ -14,9 +14,9 @@ The dataset includes diverse sewing conditions to ensure model robustness:
 - Resolution: 224 × 224 pixels.
 
 ### Creation details
-- Original source: [StitchingNet (14,565 sewing stitch images)](https://github.com/hyungjungkim/StitchingNet)
+- Original source: <a href="https://github.com/hyungjungkim/StitchingNet" target="_blank">StitchingNet (14,565 sewing stitch images)</a>
 - Time period (filteration and annotation): 2025.00 - 2025.00
-- Annotation: Pixel-level semantic masks created using [Computer Vision Annotation Tool (CVAT)](https://cvat.ai)
+- Annotation: Pixel-level semantic masks created using <a href="https://cvat.ai" target="_blank">Computer Vision Annotation Tool (CVAT)</a>
 
 ### Sample images
 <img src="images/stitchingnet-seg-annotation-examples.png" height="400"/>
@@ -26,8 +26,8 @@ The dataset includes diverse sewing conditions to ensure model robustness:
 
 ## Download data
 StitchingNet data can be downloaded directly from the following repositories:
-- [Kaggle](https://www.kaggle.com/datasets/hyungjung/stitchingnet-seg)
-- [Mendeley data](https://data.mendeley.com/datasets)
+- <a href="https://www.kaggle.com/datasets/hyungjung/stitchingnet-seg" target="_blank">Kaggle</a>
+- <a href="[https://cvat.ai](https://data.mendeley.com/datasets)" target="_blank">Mendeley data</a>
 
 ## License
 The StitchingNet is licensed under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/). This means it is free for updated research and non-commercial use with proper attribution.
