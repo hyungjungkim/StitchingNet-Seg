@@ -1,5 +1,4 @@
 # StitchingNet-Seg
-A comprehensive semantic segmentation dataset for industrial sewing stitch defects
 StitchingNet-Seg is a large-scale dataset featuring 10,836 images with pixel-level annotations, designed to advance automated quality inspection in the textile and apparel industry.
 
 ## Motivation
@@ -19,7 +18,7 @@ The dataset includes diverse sewing conditions to ensure model robustness:
 - Time period (filteration and annotation): 2025.00 - 2025.00
 - Annotation: Pixel-level semantic masks created using [Computer Vision Annotation Tool (CVAT)](https://cvat.ai)
 
-### Sample images (total 00 images)
+### Sample images
 <img src="images/stitchingnet-seg-annotation-examples.png" height="400"/>
 
 ## Original publication
