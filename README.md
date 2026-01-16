@@ -27,7 +27,7 @@ The dataset includes diverse sewing conditions to ensure model robustness:
 ## Download data
 StitchingNet data can be downloaded directly from the following repositories:
 - <a href="https://www.kaggle.com/datasets/hyungjung/stitchingnet-seg" target="_blank">Kaggle</a>
-- <a href="[https://cvat.ai](https://data.mendeley.com/datasets)" target="_blank">Mendeley data</a>
+- <a href="https://data.mendeley.com/datasets" target="_blank">Mendeley data</a>
 
 ## License
 The StitchingNet is licensed under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/). This means it is free for updated research and non-commercial use with proper attribution.
