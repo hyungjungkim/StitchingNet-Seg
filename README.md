@@ -2,7 +2,7 @@
 StitchingNet-Seg is a large-scale dataset featuring 10,836 images with pixel-level annotations, designed to advance automated quality inspection in the textile and apparel industry.
 
 ## Motivation
-Automated quality control in the garment industry is challenging due to the labor-intensive tasks and non-rigid nature of textiles. While previous research focused on fabric-level defects (e.g., holes or stains), sewing stitch defects, which occur during the fabric joining process, have lacked high-quality, pixel-level datasets. StitchingNet-Seg bridges this gap by providing precise semantic segmentation masks. Unlike simple labels and bounding boxes, these masks capture intricate geometric features such as defect shape, size, and orientation, enabling AI models to perform root-cause analysis and real-time process monitoring for smart manufacturing applications.
+Automated quality control in the garment industry is challenging due to the labor-intensive nature of tasks and the non-rigid nature of textiles. While previous research focused on fabric-level defects (e.g., holes or stains), sewing stitch defects, which occur during the fabric joining process, have lacked high-quality, pixel-level datasets. StitchingNet-Seg bridges this gap by providing precise semantic segmentation masks. Unlike simple labels and bounding boxes, these masks capture intricate geometric features, including defect shape, size, and orientation, enabling AI models to perform root-cause analysis and real-time process monitoring in smart manufacturing applications.
 
 ## Dataset description
 The dataset includes diverse sewing conditions to ensure model robustness:
@@ -10,13 +10,13 @@ The dataset includes diverse sewing conditions to ensure model robustness:
 - Fabric varieties: 11 representative fabric types with various textures and colors
 - Thread colors: Combinations of similar and contrasting thread colors.
 - Classes: normal and 7 defective types
-  - Broken stitch, 
+  - 0. Normal, 1. Skipped stitch, 2. Broken stitch, 3. Pinched fabric, 4. Crooked seam, 5. Thread sagging, 7. Stain and damage, and 10. Overlapped stitch
 - Resolution: 224 × 224 pixels.
 
 ### Creation details
 - Original source: <a href="https://github.com/hyungjungkim/StitchingNet" target="_blank">StitchingNet (14,565 sewing stitch images)</a>
-- Time period (filteration and annotation): 2025.00 - 2025.00
-- Annotation: Pixel-level semantic masks created using <a href="https://cvat.ai" target="_blank">Computer Vision Annotation Tool (CVAT)</a>
+- Time period (filtration and annotation): 2025.00 - 2025.00
+- Annotation: Pixel-level semantic masks created using the <a href="https://cvat.ai" target="_blank">Computer Vision Annotation Tool (CVAT)</a>
 
 ### Sample images
 <img src="images/stitchingnet-seg-annotation-examples.png" height="400"/>
