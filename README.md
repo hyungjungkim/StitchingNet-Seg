@@ -14,7 +14,7 @@ The dataset includes diverse sewing conditions to ensure model robustness:
 - Resolution: 224 × 224 pixels.
 
 ### Creation details
-- Original source: [StitchingNet(14,565 sewing stitch images)](https://github.com/hyungjungkim/StitchingNet)
+- Original source: [StitchingNet (14,565 sewing stitch images)](https://github.com/hyungjungkim/StitchingNet)
 - Time period (filteration and annotation): 2025.00 - 2025.00
 - Annotation: Pixel-level semantic masks created using [Computer Vision Annotation Tool (CVAT)](https://cvat.ai)
 
