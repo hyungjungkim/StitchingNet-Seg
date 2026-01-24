@@ -26,7 +26,7 @@ The dataset is organized into a hierarchical structure containing various fabric
 <img src="images/stitchingnet-seg-annotation-examples.png" height="400"/>
 
 ### Code examples
-We provide reference implementation codes in the 'code-examples' folder to help researchers get started with StitchingNet-Seg quickly.
+We provide reference implementation codes in the [code-examples folder](/code-examples) to help researchers get started with StitchingNet-Seg quickly.
 
 ## Original publication
 (TBA)
