@@ -1,3 +1,5 @@
+# Part 1. Dataset preparation
+
 import os
 import cv2
 import torch
@@ -8,39 +10,40 @@ import albumentations as A
 from albumentations.pytorch import ToTensorV2
 
 # Configuration
-IMAGE_ROOT = "./StitchingNet-seg/dataset"
-IMAGESETS_DIR = "./StitchingNet-seg/splits"
-EXCLUDED_CLASSES = [6, 8, 9]
+IMAGE_ROOT = "/content/StitchingNet-Seg/dataset"
+IMAGESETS_DIR = "/content/StitchingNet-Seg/splits"
+EXCLUDED_CLASSES = [6, 8, 9] # from StitchingNet
 IMG_EXTENSIONS = ['.jpg', '.png']
 
-# Mapping from Dataset Folder ID (Defect Type) to Segmentation Class ID
-# Format: {Folder_ID: Segmentation_Class_ID}
-SEG_CLASS_MAP = {1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 7: 6, 10: 7}
+# Mapping from dataset folder ID (Defect Type) to segmentation class ID
+# Format: {Folder_ID: Segmentation_class_ID}
+SEG_CLASS_MAP = {1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 7: 6, 10: 7} # total 8 classes
 NUM_CLASSES = len(SEG_CLASS_MAP) + 1  # +1 for Background
+
 
 def get_file_paths():
     """
     Traverses the dataset directory to collect image and mask paths.
     Returns lists of metadata for train, validation, and test sets.
     """
-    material_folders = sorted([d for d in os.listdir(IMAGE_ROOT) if os.path.isdir(os.path.join(IMAGE_ROOT, d))])
-    
+    fabric_folders = sorted([d for d in os.listdir(IMAGE_ROOT) if os.path.isdir(os.path.join(IMAGE_ROOT, d))])
+
     all_image_meta = {}
 
-    for material_folder in material_folders:
-        material_path = os.path.join(IMAGE_ROOT, material_folder)
+    for fabric_folder in fabric_folders:
+        fabric_path = os.path.join(IMAGE_ROOT, fabric_folder)
 
-        for class_folder in os.listdir(material_path):
+        for class_folder in os.listdir(fabric_path):
             try:
-                # Folder name indicates the defect type ID
+                # Folder name indicates the defective class ID
                 class_id = int(class_folder.split('.')[0])
             except ValueError:
                 continue
-            
+
             if class_id in EXCLUDED_CLASSES:
                 continue
-            
-            class_path_base = os.path.join(material_path, class_folder)
+
+            class_path_base = os.path.join(fabric_path, class_folder)
             image_dir = os.path.join(class_path_base, 'image')
             mask_dir = os.path.join(class_path_base, 'mask')
 
@@ -57,8 +60,8 @@ def get_file_paths():
 
                 if not os.path.exists(mask_path):
                     continue
-                
-                # Store metadata: (image_path, mask_path, defect_type_id)
+
+                # Store metadata: (image_path, mask_path, defective_class_id)
                 all_image_meta[basename] = (img_path, mask_path, class_id)
 
     def load_data_from_split_file(split_filename):
@@ -68,16 +71,16 @@ def get_file_paths():
         split_path = os.path.join(IMAGESETS_DIR, split_filename)
         if not os.path.exists(split_path):
             raise FileNotFoundError(f"Split file not found: {split_path}")
-            
+
         data_list = []
         with open(split_path, 'r') as f:
             basenames = [line.strip() for line in f if line.strip()]
-            
+
         for basename in basenames:
             meta = all_image_meta.get(basename)
             if meta:
                 data_list.append(meta)
-                
+
         return data_list
 
     train_data = load_data_from_split_file("train.txt")
@@ -89,7 +92,7 @@ def get_file_paths():
 
 class SegmentationDataset(Dataset):
     """
-    Custom Dataset for Semantic Segmentation.
+    Customize dataset for semantic segmentation.
     """
     def __init__(self, file_data, seg_map, transforms=None):
         self.file_data = file_data
@@ -101,30 +104,32 @@ class SegmentationDataset(Dataset):
 
     def __getitem__(self, idx):
         img_path, mask_path, original_defect_id = self.file_data[idx]
-        
-        # Load Image
+
+        # Load image
         image = cv2.imread(img_path)
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        
-        # Load Mask
+
+        # Load mask
         mask = cv2.imread(mask_path, cv2.IMREAD_GRAYSCALE)
         if mask is None:
             raise IOError(f"Failed to read mask file: {mask_path}")
-            
-        # Generate Segmentation Mask based on Defect ID
+
+        # Generate segmentation mask based on defect ID
         seg_mask = np.zeros_like(mask, dtype=np.int64)
-        
-        if original_defect_id != 0: 
+
+        if original_defect_id != 0:
             target_seg_id = self.seg_map[original_defect_id]
             seg_mask[mask > 0] = target_seg_id
-        
+
         if self.transforms:
             transformed = self.transforms(image=image, masks=[seg_mask])
             image = transformed['image']
             seg_mask = transformed['masks'][0]
-            
+
         return image, seg_mask.long()
+
     
+# Utility functions
 def get_transforms(image_size=256):
     """
     Returns Albumentations transforms for training and validation.
@@ -162,36 +167,40 @@ def get_dataloaders(batch_size=8, image_size=256, num_workers=4, seed=42):
 
     g = torch.Generator()
     g.manual_seed(seed)
-    
+
     train_loader = DataLoader(
-        train_dataset, batch_size=batch_size, shuffle=True, 
-        num_workers=num_workers, pin_memory=True, 
+        train_dataset, batch_size=batch_size, shuffle=True,
+        num_workers=num_workers, pin_memory=True,
         worker_init_fn=seed_worker, generator=g
     )
     val_loader = DataLoader(
-        val_dataset, batch_size=batch_size, shuffle=False, 
-        num_workers=num_workers, pin_memory=True, 
+        val_dataset, batch_size=batch_size, shuffle=False,
+        num_workers=num_workers, pin_memory=True,
         worker_init_fn=seed_worker
     )
     test_loader = DataLoader(
-        test_dataset, batch_size=batch_size, shuffle=False, 
-        num_workers=num_workers, pin_memory=True, 
+        test_dataset, batch_size=batch_size, shuffle=False,
+        num_workers=num_workers, pin_memory=True,
         worker_init_fn=seed_worker
     )
-    
+
     return train_loader, val_loader, test_loader, NUM_CLASSES
 
+
 if __name__ == '__main__':
-    print("Initializing DataLoaders...")
+    """
+    Before testing the code, you should unzip StitchingNet-Seg.zip to the workplace folder!
+    """
+    print("Initializing DataLoaDers...")
     train_dl, val_dl, test_dl, num_classes = get_dataloaders(batch_size=4, num_workers=0)
-    
-    print(f"Number of Segmentation Classes: {num_classes}")
+
+    print(f"Number of segmentation classes: {num_classes}")
     print(f"Train batches: {len(train_dl)}")
-    
+
     if len(train_dl) > 0:
         print("\nChecking first batch...")
         images, seg_masks = next(iter(train_dl))
-        
+
         print(f"Image shape: {images.shape}")
         print(f"Mask shape: {seg_masks.shape}")
         print(f"Unique mask values: {torch.unique(seg_masks)}")
