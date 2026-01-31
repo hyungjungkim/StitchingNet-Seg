@@ -59,7 +59,7 @@ class ModelFactory(nn.Module):
         super().__init__()
         self.model_name = model_name
 
-        if model_name == 'ResUNet':
+        if model_name == 'ResNet-UNet':
             self.model = smp.Unet(
                 encoder_name="resnet34", encoder_weights="imagenet",
                 in_channels=3, classes=num_classes
@@ -314,8 +314,8 @@ train_dl, val_dl, test_dl, num_classes = get_dataloaders(
 )
 
 # 2. Set target models to benchmark
-# target_models = ['ResUNet', 'UNet++', 'DeepLabV3', 'SegFormer', 'Swin-Unet']
-target_models = ['ResUNet', 'SegFormer']
+# target_models = ['ResNet-UNet', 'UNet++', 'DeepLabV3', 'SegFormer', 'Swin-Unet']
+target_models = ['ResNet-UNet', 'SegFormer']
 results = []
 
 # 3. Run experiments
