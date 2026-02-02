@@ -33,7 +33,7 @@ We provide reference implementation codes in the [code-examples folder](/code-ex
 
 ## Download data
 StitchingNet data can be downloaded directly from the following repositories.
-- 
+- <a href="https://doi.org/10.6084/m9.figshare.31222708" target="_blank">figshare</a>
 - (under preparation) <a href="https://www.kaggle.com/datasets/hyungjung/stitchingnet-seg" target="_blank">Kaggle</a>
 - (under preparation) <a href="https://data.mendeley.com/datasets" target="_blank">Mendeley data</a>
 
