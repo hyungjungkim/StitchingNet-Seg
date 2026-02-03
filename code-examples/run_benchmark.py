@@ -1,5 +1,6 @@
 # Part 2. Run benchmark
 
+from multiprocessing import freeze_support
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -11,6 +12,7 @@ import sys
 import pandas as pd
 import random
 import matplotlib.pyplot as plt
+from prepare_dataset import get_dataloaders
 
 # Configuration & hyperparameters
 BASE_DIR = "./result_models"
@@ -304,43 +306,46 @@ def run_experiment(model_name, train_dl, val_dl, test_dl, num_classes):
 
 
 # Run benchmark
-set_seed(SEED)
-print(f"The experiment for model benchmark is started on {DEVICE}")
-print(f"Base directory: {BASE_DIR}")
-
-# 1. Load StitchingNet-Seg dataset
-train_dl, val_dl, test_dl, num_classes = get_dataloaders(
-    batch_size=BATCH_SIZE, image_size=IMAGE_SIZE, num_workers=NUM_WORKERS, seed=SEED
-)
-
-# 2. Set target models to benchmark
-# target_models = ['ResNet-UNet', 'UNet++', 'DeepLabV3', 'SegFormer', 'Swin-Unet']
-target_models = ['ResNet-UNet', 'SegFormer']
-results = []
-
-# 3. Run experiments
-for model_name in target_models:
+if __name__ == '__main__':
+    freeze_support()
+    
     set_seed(SEED)
-    try:
-        res = run_experiment(model_name, train_dl, val_dl, test_dl, num_classes)
-        results.append(res)
-    except Exception as e:
-        print(f"Error training {model_name}: {e}")
-        import traceback
-        traceback.print_exc()
+    print(f"The experiment for model benchmark is started on {DEVICE}")
+    print(f"Base directory: {BASE_DIR}")
 
-# 4. Save final benchmark results
-if results:
-    df = pd.DataFrame(results)
-    df = df.sort_values(by='mIoU', ascending=False)
+    # 1. Load StitchingNet-Seg dataset
+    train_dl, val_dl, test_dl, num_classes = get_dataloaders(
+        batch_size=BATCH_SIZE, image_size=IMAGE_SIZE, num_workers=NUM_WORKERS, seed=SEED
+    )
 
-    save_path = os.path.join(RESULT_SAVE_DIR, "final_benchmark_results.csv")
-    df.to_csv(save_path, index=False)
+    # 2. Set target models to benchmark
+    # target_models = ['ResNet-UNet', 'UNet++', 'DeepLabV3', 'SegFormer', 'Swin-Unet']
+    target_models = ['ResNet-UNet', 'SegFormer']
+    results = []
 
-    print("\n" + "="*60)
-    print("Final benchmark results")
-    print("="*60)
-    print(df.to_string(index=False))
-    print(f"\nResults saved to: {save_path}")
-else:
-    print("No results to save.")
+    # 3. Run experiments
+    for model_name in target_models:
+        set_seed(SEED)
+        try:
+            res = run_experiment(model_name, train_dl, val_dl, test_dl, num_classes)
+            results.append(res)
+        except Exception as e:
+            print(f"Error training {model_name}: {e}")
+            import traceback
+            traceback.print_exc()
+
+    # 4. Save final benchmark results
+    if results:
+        df = pd.DataFrame(results)
+        df = df.sort_values(by='mIoU', ascending=False)
+
+        save_path = os.path.join(RESULT_SAVE_DIR, "final_benchmark_results.csv")
+        df.to_csv(save_path, index=False)
+
+        print("\n" + "="*60)
+        print("Final benchmark results")
+        print("="*60)
+        print(df.to_string(index=False))
+        print(f"\nResults saved to: {save_path}")
+    else:
+        print("No results to save.")

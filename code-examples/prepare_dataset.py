@@ -10,8 +10,8 @@ import albumentations as A
 from albumentations.pytorch import ToTensorV2
 
 # Configuration
-IMAGE_ROOT = "/content/StitchingNet-Seg/dataset"
-IMAGESETS_DIR = "/content/StitchingNet-Seg/splits"
+IMAGE_ROOT = "content/StitchingNet-Seg/dataset"
+IMAGESETS_DIR = "content/StitchingNet-Seg/splits"
 EXCLUDED_CLASSES = [6, 8, 9] # from StitchingNet
 IMG_EXTENSIONS = ['.jpg', '.png']
 
