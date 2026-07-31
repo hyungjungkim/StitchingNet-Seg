@@ -38,7 +38,7 @@ StitchingNet data can be downloaded directly from the following repositories.
 - (under preparation) <a href="https://data.mendeley.com/datasets" target="_blank">Mendeley data</a>
 
 ## License
-The StitchingNet is licensed under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/). This means it is free for research updates and non-commercial use with proper attribution.
+The StitchingNet is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). This means it is free to share and adapt for any purpose, including commercial use, as long as proper attribution is given.
 
 ## Contact
 Please email Hyungjung Kim (hyungjungkim@konkuk.ac.kr) and Junhyeok Park(wnsgur9910@konkuk.ac.kr) with any questions regarding the dataset.
