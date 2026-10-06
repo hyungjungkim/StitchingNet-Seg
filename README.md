@@ -32,10 +32,8 @@ We provide reference implementation codes in the [code-examples folder](/code-ex
 (TBA)
 
 ## Download data
-StitchingNet data can be downloaded directly from the following repositories.
+StitchingNet data can be downloaded directly from the following figshare repository.
 - <a href="https://doi.org/10.6084/m9.figshare.31222708" target="_blank">figshare</a>
-- (under preparation) <a href="https://www.kaggle.com/datasets/hyungjung/stitchingnet-seg" target="_blank">Kaggle</a>
-- (under preparation) <a href="https://data.mendeley.com/datasets" target="_blank">Mendeley data</a>
 
 ## License
 The StitchingNet is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). This means it is free to share and adapt for any purpose, including commercial use, as long as proper attribution is given.
