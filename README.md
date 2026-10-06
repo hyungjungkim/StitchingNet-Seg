@@ -29,7 +29,7 @@ The dataset is organized into a hierarchical structure containing various fabric
 We provide reference implementation codes in the [code-examples folder](/code-examples) to help researchers quickly get started with StitchingNet-Seg.
 
 ## Original publication
-(TBA)
+Park, J., Jung, W.K., and Kim, H., 2026. **StitchingNet-Seg: a semantic segmentation dataset of industrial sewing stitch defects**. Scientific Data, Accepted (Oct. 6, 2026).
 
 ## Download data
 StitchingNet data can be downloaded directly from the following figshare repository.
@@ -37,6 +37,9 @@ StitchingNet data can be downloaded directly from the following figshare reposit
 
 ## License
 The StitchingNet is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). This means it is free to share and adapt for any purpose, including commercial use, as long as proper attribution is given.
+
+## Acknowledgements
+The authors gratefully acknowledge [Hojeon Limited](https://www.hojeon.com/) for inspiring us to prepare the dataset for this study.
 
 ## Contact
 Please email Hyungjung Kim (hyungjungkim@konkuk.ac.kr) and Junhyeok Park(wnsgur9910@konkuk.ac.kr) with any questions regarding the dataset.
